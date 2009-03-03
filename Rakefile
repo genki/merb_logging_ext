@@ -6,10 +6,10 @@ require 'merb-core/tasks/merb'
 
 GEM_NAME = "merb_logging_ext"
 GEM_VERSION = "0.0.1"
-AUTHOR = "Your Name"
-EMAIL = "Your Email"
-HOMEPAGE = "http://merbivore.com/"
-SUMMARY = "Merb plugin that provides ..."
+AUTHOR = "Yukiko Kawamoto"
+EMAIL = "yu0420@gmail.com"
+HOMEPAGE = "http://github.com/yukiko/merb_logging_ext"
+SUMMARY = "Merb plugin that provides logging extensions especially when request handling"
 
 spec = Gem::Specification.new do |s|
   s.rubyforge_project = 'merb'
