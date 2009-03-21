@@ -74,6 +74,7 @@ module Merb
       GEM_PATH_REGEXPS = Gem.path.map{ |gem_path| 
           %r{^#{File.expand_path gem_path}/gems/([^/]*-\d+\.\d+\.\d+)/(.*)$}.freeze 
         }.freeze
+      MERB_ROOT_REGEXP = /^#{Merb.root}(.*)$/.freeze
     end
 
 
@@ -99,7 +100,14 @@ module Merb
           else
             gem_name= Colorful.yellow m[1]
           end
-          path = "#{gem_name}:#{m[2]}"
+          "#{gem_name}:#{m[2]}"
+        elsif m = path.match( Merb::Const::MERB_ROOT_REGEXP )
+          unless color
+            merb_root_name = "Merb.root"
+          else
+            merb_root_name = Colorful.red "Merb.root"
+          end
+          "#{merb_root_name}:#{m[1]}" 
         else
           path
         end
