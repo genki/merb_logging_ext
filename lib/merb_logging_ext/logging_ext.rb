@@ -89,24 +89,16 @@ module Merb
     #
     # :api: plugin
     def self.exception(e)
-      color = true
+      no_color = false
       backtrace = e.backtrace.dup or []
       backtrace.map! do |path|
         if m = Merb::Const::GEM_PATH_REGEXPS.map{|regex| path.match regex }.find{|m| m != nil }
           # gem_name_with_version = m[1]
           # relative_path = m[2]
-          unless color 
-            gem_name= m[1]
-          else
-            gem_name= Colorful.yellow m[1]
-          end
+          gem_name = no_color ? m[1] : Colorful.yellow(m[1])
           "#{gem_name}:#{m[2]}"
         elsif m = path.match( Merb::Const::MERB_ROOT_REGEXP )
-          unless color
-            merb_root_name = "Merb.root"
-          else
-            merb_root_name = Colorful.red "Merb.root"
-          end
+          merb_root_name = no_color ? "Merb.root" : Colorful.red("Merb.root")
           "#{merb_root_name}:#{m[1]}" 
         else
           path
