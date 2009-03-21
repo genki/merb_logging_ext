@@ -90,7 +90,7 @@ module Merb
     #
     # :api: plugin
     def self.exception(e)
-      no_color = false
+      no_color = false # TODO need a option to choose whether colorize or not.
       backtrace = e.backtrace.dup or []
       backtrace.map! do |path|
         if m = Merb::Const::GEM_PATH_REGEXPS.map{|regex| path.match regex }.find{|m| m != nil }
