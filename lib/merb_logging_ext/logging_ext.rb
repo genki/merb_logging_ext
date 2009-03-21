@@ -91,19 +91,18 @@ module Merb
       color = true
       backtrace = e.backtrace.dup or []
       backtrace.map! do |path|
-        Merb::Const::GEM_PATH_REGEXPS.inject(nil) do |omitted, regex|
-          if omitted.nil? and m = path.match(regex) 
-            # gem_name_with_version = m[1]
-            # relative_path = m[2]
-            unless color 
-              gem_name= m[1]
-            else
-              gem_name= Colorful.yellow m[1]
-            end
-            omitted = "#{gem_name}:#{m[2]}"
+        if m = Merb::Const::GEM_PATH_REGEXPS.map{|regex| path.match regex }.find{|m| m != nil }
+          # gem_name_with_version = m[1]
+          # relative_path = m[2]
+          unless color 
+            gem_name= m[1]
+          else
+            gem_name= Colorful.yellow m[1]
           end
-          omitted
-        end || path
+          path = "#{gem_name}:#{m[2]}"
+        else
+          path
+        end
       end
       "#{ e.message } - (#{ e.class })\n" <<  
       "#{backtrace.join("\n")}"
