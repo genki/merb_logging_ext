@@ -5,7 +5,7 @@ require 'merb-core'
 require 'merb-core/tasks/merb'
 
 GEM_NAME = "merb_logging_ext"
-GEM_VERSION = "0.0.1"
+GEM_VERSION = "0.0.2"
 AUTHOR = "Yukiko Kawamoto"
 EMAIL = "yu0420@gmail.com"
 HOMEPAGE = "http://github.com/yukiko/merb_logging_ext"
