@@ -72,7 +72,7 @@ module Merb
 
     module Const
       GEM_PATH_REGEXPS = Gem.path.map{ |gem_path| 
-          %r{^#{File.expand_path gem_path}/gems/([^/]*)-(\d+\.\d+\.\d+)/(.*)$}.freeze 
+          %r{^#{File.expand_path gem_path}/gems/([^/]*-\d+\.\d+\.\d+)/(.*)$}.freeze 
         }.freeze
     end
 
@@ -93,15 +93,14 @@ module Merb
       backtrace.map! do |path|
         Merb::Const::GEM_PATH_REGEXPS.inject(nil) do |omitted, regex|
           if omitted.nil? and m = path.match(regex) 
-            # gem_name = m[1] or m[1].camel_case
-            # gem_version = m[2]
-            # relative_path = m[3]
+            # gem_name_with_version = m[1]
+            # relative_path = m[2]
             unless color 
-              gem_name= "#{m[1]}-#{m[2]}"
+              gem_name= m[1]
             else
-              gem_name= Colorful.yellow "#{m[1]}-#{m[2]}"
+              gem_name= Colorful.yellow m[1]
             end
-            omitted = "#{gem_name}:#{m[3]}"
+            omitted = "#{gem_name}:#{m[2]}"
           end
           omitted
         end || path
