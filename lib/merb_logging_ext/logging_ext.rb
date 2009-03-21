@@ -1,7 +1,10 @@
-# Most of this feature is extending Merb::Request#handle
+# NOTE the original codes came from Merb 1.0.9-1.0.10.
+
 module Merb
   class Request
-    # NOTE: the original method of this came from Merb 1.0.9.
+   
+    # NOTE the original code of Merb::Request#handle is defined in merb-core/dispatch/dispatcher.rb
+
     # Handles request routing and action dispatch.
     # 
     # ==== Returns
@@ -72,6 +75,9 @@ module Merb
           %r{^#{File.expand_path gem_path}/gems/([^/]*)-(\d+\.\d+\.\d+)/(.*)$}.freeze 
         }.freeze
     end
+
+
+    #NOTE The original code of Merb.exception is defined in merb-core/controller/exception.rb
 
     # Required to show exceptions in the log file
     #
