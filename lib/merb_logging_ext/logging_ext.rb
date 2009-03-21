@@ -82,6 +82,7 @@ module Merb
     #
     # :api: plugin
     def self.exception(e)
+      color = true
       backtrace = e.backtrace.dup or []
       backtrace.map! do |path|
         Merb::Const::GEM_PATH_REGEXPS.inject(nil) do |omitted, regex|
@@ -89,7 +90,12 @@ module Merb
             # gem_name = m[1] or m[1].camel_case
             # gem_version = m[2]
             # relative_path = m[3]
-            omitted = "#{m[1]}(#{m[2]}):#{m[3]}"
+            unless color 
+              gem_name= "#{m[1]}-#{m[2]}"
+            else
+              gem_name= Colorful.yellow "#{m[1]}-#{m[2]}"
+            end
+            omitted = "#{gem_name}:#{m[3]}"
           end
           omitted
         end || path
